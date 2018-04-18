@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Bitreader{
 	public static void main(String[] args){
 		// Input fil som File objekt 
-		File testFil = new File("testtest.txt");
+		File testFil = new File("test.txt");
 		readBits(testFil);	
 	}
 	
@@ -21,7 +21,7 @@ public class Bitreader{
 			int bitContent = bitInp.readBit(); 
 			int counter = 0;
 			while(bitContent != -1){
-				System.out.println(bitContent);
+				System.out.print(bitContent);
 				bitContent = bitInp.readBit(); 
 				counter++;
 			}
