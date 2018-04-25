@@ -7,10 +7,9 @@ import java.io.IOException;
 public class Encode{
 	public static void main(String[] args){
 		// Laver args om til File-objekter 
-		if (args.length > 2){
+		if (args.length != 2){
 			// Fejlinput
-			System.out.println("Giv præcis to argumenter så følgende form følges:");
-			System.out.println("    Java Encode nameOfOriginalFile nameOfCompressedFile");
+			System.out.println("To argumenter ikke givet. Terminerer program.");
 		}
 		else{
 			// Laver Bytereaderobjekt, der tager inputstreng lavet om til File objekt som argument
