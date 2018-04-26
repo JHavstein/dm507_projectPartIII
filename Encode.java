@@ -16,6 +16,8 @@ public class Encode{
 			Bytereader test = new Bytereader(new File(args[0]));
 			// Laver frekvens tabel 
 			test.byteReader();
+			test.getFrequencies();
+			PQHeap n = makeHuffmanTree(test.getFrequencies()); 
 		}
 		// Laver outputStream til fil fra args[1]
 		try{
@@ -25,5 +27,23 @@ public class Encode{
 		catch (IOException e ){
 			e.printStackTrace(); 
 		}
+	}
+	
+	// Skal nok gøres non-static
+	public static PQHeap makeHuffmanTree(int[] a){
+		PQHeap HuffmanTree = new PQHeap(a.length);
+		for (int i = 0; i < a.length; i++){
+			Element tmp = new Element(a[i], new HuffmanTempTree(i));
+			HuffmanTree.insert(tmp);
+		}
+		// Mangler merge-skridtene
+		for (int i = 0; i < a.length-2; i++){
+			Element x = HuffmanTree.extractMin();
+			Element y = HuffmanTree.extractMin();
+			int zFreq = x.key + y.key; 
+			HuffmanTempTree ztree = HuffmanTempTree.merge(x.data, y.data);
+			Element z = new Element(zFreq, ztree);
+		}
+		return HuffmanTree; 
 	}
 }

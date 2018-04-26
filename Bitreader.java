@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Bitreader{
 	public static void main(String[] args){
 		// Input fil som File objekt 
-		File testFil = new File("test.txt");
+		File testFil = new File("test4.jpg");
 		readBits(testFil);	
 	}
 	
@@ -25,7 +25,8 @@ public class Bitreader{
 				bitContent = bitInp.readBit(); 
 				counter++;
 			}
-			System.out.println("Number of bits outputted: "+ counter);
+			System.out.println('\n'+'\n');			
+			System.out.println("Number of bits: "+ counter);
 			// Lukker BitInputStream
 			bitInp.close();
 		}
