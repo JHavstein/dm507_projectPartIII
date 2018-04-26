@@ -5,6 +5,7 @@ public class HuffmanTempTree{
 	
 	private Node root; 
 	private int k; 
+	private int i = 0; 
 	 
 	// Constructor method
 	public HuffmanTempTree(int k){
@@ -25,7 +26,6 @@ public class HuffmanTempTree{
 	// 0 = left
 	// 1 = right
     private String[] inOrderTreeWalkPath(Node x, String s, String[] res){
-		int i = 0; 
 		String temp = s;
 		if(x != null){
 			inOrderTreeWalkPath(x.left, s+"0",res);
