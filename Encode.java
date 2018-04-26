@@ -19,18 +19,32 @@ public class Encode{
 			test.getFrequencies();
 			PQHeap n = makeHuffmanTree(test.getFrequencies());
 			String[] table = makeHuffmanTable(n);
+			test.printFrequencies();
+			for (int i = 0; i < table.length; i++) {
+				System.out.println("key " + i + " : " + table[i]);
+			}
+
 		}
 		// Laver outputStream til fil fra args[1]
 		try{
 			FileInputStream input = new FileInputStream(args[0]);
-			FileOutputStream output = new FileOutputStream(args[1]);
+			BitOutputStream output = new BitOutputStream ( new FileOutputStream(args[1]));
 			//output.write(222);
+			int x;
+			/**
+			while((x = input.read())!=-1){
+				String in = table[x];
+				for (int i=0; i<in.length(); i++){
+					int out = Character.getNumericValue(in.charAt(i));
+					output.writeBit(out);
+				}
+			}
+			 **/
+			input.close();
+			output.close();
 		}
 		catch (IOException e ){
-			e.printStackTrace(); 
-		}
-		while((int x = input.read())!=-1){
-
+			e.printStackTrace();
 		}
 	}
 	
@@ -42,7 +56,7 @@ public class Encode{
 			HuffmanTree.insert(tmp);
 		}
 		// Mangler merge-skridtene
-		for (int i = 0; i < a.length-2; i++){
+		for (int i = 0; i < a.length-1; i++){
 			Element x = HuffmanTree.extractMin();
 			Element y = HuffmanTree.extractMin();
 			int zFreq = x.key + y.key; 
