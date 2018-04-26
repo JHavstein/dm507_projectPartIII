@@ -25,10 +25,13 @@ public class HuffmanTempTree{
 	// 0 = left
 	// 1 = right
     private String[] inOrderTreeWalkPath(Node x, String s, String[] res){
+		int i = 0; 
 		String temp = s;
 		if(x != null){
 			inOrderTreeWalkPath(x.left, s+"0",res);
-			res[i] = "Key " + x.key+" : "+ temp; 
+			if (x.right == null & x.left == null){
+				res[i] = "Key " + x.key+" : "+ temp; 
+			}
             i++;
             inOrderTreeWalkPath(x.right, s+"1",res);
         }
