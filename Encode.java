@@ -17,15 +17,20 @@ public class Encode{
 			// Laver frekvens tabel 
 			test.byteReader();
 			test.getFrequencies();
-			PQHeap n = makeHuffmanTree(test.getFrequencies()); 
+			PQHeap n = makeHuffmanTree(test.getFrequencies());
+			String[] table = makeHuffmanTable(n);
 		}
 		// Laver outputStream til fil fra args[1]
 		try{
+			FileInputStream input = new FileInputStream(args[0]);
 			FileOutputStream output = new FileOutputStream(args[1]);
 			//output.write(222);
 		}
 		catch (IOException e ){
 			e.printStackTrace(); 
+		}
+		while((int x = input.read())!=-1){
+
 		}
 	}
 	
@@ -47,5 +52,10 @@ public class Encode{
 		}
 		return HuffmanTree; 
 	}
-	
+
+	public static String[] makeHuffmanTable( PQHeap t ) {
+		String[] out = new String[256];
+		HuffmanTempTree huff = t.extractMin().data;
+		return huff.inOrderTreeWalkPath(huff.root, "", out);
+	}
 }
