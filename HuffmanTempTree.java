@@ -20,13 +20,17 @@ public class HuffmanTempTree{
 		return newTree; 
 	}
 	
+	// Method for traversing a tree and storing the paths from ndoe x to each
+	// node in the tree.
+	// 0 = left
+	// 1 = right
     private String[] inOrderTreeWalkPath(Node x, String s, String[] res){
 		String temp = s;
 		if(x != null){
-			inOrderTreeWalkPath(x.left, s+"L",res);
+			inOrderTreeWalkPath(x.left, s+"0",res);
 			res[i] = "Key " + x.key+" : "+ temp; 
             i++;
-            inOrderTreeWalkPath(x.right, s+"R",res);
+            inOrderTreeWalkPath(x.right, s+"1",res);
         }
 		// An array containing the elements in 
 		// increasing, sorted order is returned 
