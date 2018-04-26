@@ -5,7 +5,6 @@ public class HuffmanTempTree{
 	
 	private Node root; 
 	private int k; 
-	private int i = 0; 
 	 
 	// Constructor method
 	public HuffmanTempTree(int k){
@@ -32,7 +31,7 @@ public class HuffmanTempTree{
 			if (x.right == null & x.left == null){
 				res[x.key] = temp; 
 			}
-            i++;
+            //i++;
             inOrderTreeWalkPath(x.right, s+"1",res);
         }
 		// An array containing the elements in 
