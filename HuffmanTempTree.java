@@ -30,7 +30,7 @@ public class HuffmanTempTree{
 		if(x != null){
 			inOrderTreeWalkPath(x.left, s+"0",res);
 			if (x.right == null & x.left == null){
-				res[i] = "Key " + x.key+" : "+ temp; 
+				res[x.key] = temp; 
 			}
             i++;
             inOrderTreeWalkPath(x.right, s+"1",res);
