@@ -23,29 +23,29 @@ public class Encode{
 			for (int i = 0; i < table.length; i++) {
 				System.out.println("key " + i + " : " + table[i]);
 			}
+            try{
+                FileInputStream input = new FileInputStream(args[0]);
+                BitOutputStream output = new BitOutputStream ( new FileOutputStream(args[1]));
+                //output.write(222);
+                int x;
 
+                while((x = input.read())!=-1){
+                    String in = table[x];
+                    for (int i=0; i<in.length(); i++){
+                        int out = Character.getNumericValue(in.charAt(i));
+                        output.writeBit(out);
+                    }
+                }
+
+                input.close();
+                output.close();
+            }
+            catch (IOException e ){
+                e.printStackTrace();
+            }
 		}
 		// Laver outputStream til fil fra args[1]
-		try{
-			FileInputStream input = new FileInputStream(args[0]);
-			BitOutputStream output = new BitOutputStream ( new FileOutputStream(args[1]));
-			//output.write(222);
-			int x;
-			/**
-			while((x = input.read())!=-1){
-				String in = table[x];
-				for (int i=0; i<in.length(); i++){
-					int out = Character.getNumericValue(in.charAt(i));
-					output.writeBit(out);
-				}
-			}
-			 **/
-			input.close();
-			output.close();
-		}
-		catch (IOException e ){
-			e.printStackTrace();
-		}
+
 	}
 	
 	// Skal nok gøres non-static
