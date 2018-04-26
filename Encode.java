@@ -43,7 +43,9 @@ public class Encode{
 			int zFreq = x.key + y.key; 
 			HuffmanTempTree ztree = HuffmanTempTree.merge(x.data, y.data);
 			Element z = new Element(zFreq, ztree);
+			Huffmantree.insert(z);
 		}
 		return HuffmanTree; 
 	}
+	
 }

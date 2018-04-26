@@ -13,7 +13,7 @@ public class HuffmanTempTree{
 	
 	// Combines two trees by making a new node and making the to input trees
 	// subtrees of the root.
-	public static HuffmanTempTree merge(HuffmanTempTree a, HuffmanTempTree b){
+	public HuffmanTempTree merge(HuffmanTempTree a, HuffmanTempTree b){
 		HuffmanTempTree newTree = new HuffmanTempTree(0); // skal roden have en meningsfuld key?
 		newTree.root.left = a.root;
 		newTree.root.right = b.root; 
