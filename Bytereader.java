@@ -12,7 +12,7 @@ public class Bytereader{
 	
 	public void byteReader(){
 		// Array til at tælle frekvens af bytes
-		//int[] counter = new int[256];
+		// int[] counter = new int[256];
 		// FileInputStream til at læse bytes fra en File
 		FileInputStream byteInput = null;	
 		try{
@@ -44,5 +44,10 @@ public class Bytereader{
 	public int[] getFrequencies(){
 		int[] copyOfCounter = Arrays.copyOf(counter, counter.length); 
 		return copyOfCounter; 
+	}
+	
+	// Returns the frequence of a given byte pattern given by index i
+	public int freqAtIndex(int i){
+		return counter[i]; 
 	}		
 }

@@ -3,10 +3,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class ByteToIntReader{
-	public static void main(String[] args){
-		// Input fil som File objekt 
-		File testFil = new File("testtest.txt");
-		readByteAsInt(testFil);	
+	public ByteToIntReader(File fil){
+		this.fil = fil; 
 	}
 	
 	public static void readByteAsInt(File fil){
