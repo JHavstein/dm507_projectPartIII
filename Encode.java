@@ -17,16 +17,35 @@ public class Encode{
 			// Laver frekvens tabel 
 			test.byteReader();
 			test.getFrequencies();
-			PQHeap n = makeHuffmanTree(test.getFrequencies()); 
+			PQHeap n = makeHuffmanTree(test.getFrequencies());
+			String[] table = makeHuffmanTable(n);
+			test.printFrequencies();
+			for (int i = 0; i < table.length; i++) {
+				System.out.println("key " + i + " : " + table[i]);
+			}
+            try{
+                FileInputStream input = new FileInputStream(args[0]);
+                BitOutputStream output = new BitOutputStream ( new FileOutputStream(args[1]));
+                //output.write(222);
+                int x;
+
+                while((x = input.read())!=-1){
+                    String in = table[x];
+                    for (int i=0; i<in.length(); i++){
+                        int out = Character.getNumericValue(in.charAt(i));
+                        output.writeBit(out);
+                    }
+                }
+
+                input.close();
+                output.close();
+            }
+            catch (IOException e ){
+                e.printStackTrace();
+            }
 		}
 		// Laver outputStream til fil fra args[1]
-		try{
-			FileOutputStream output = new FileOutputStream(args[1]);
-			//output.write(222);
-		}
-		catch (IOException e ){
-			e.printStackTrace(); 
-		}
+
 	}
 	
 	// Skal nok gøres non-static
@@ -37,7 +56,7 @@ public class Encode{
 			HuffmanTree.insert(tmp);
 		}
 		// Mangler merge-skridtene
-		for (int i = 0; i < a.length-2; i++){
+		for (int i = 0; i < a.length-1; i++){
 			Element x = HuffmanTree.extractMin();
 			Element y = HuffmanTree.extractMin();
 			int zFreq = x.key + y.key; 
@@ -47,5 +66,10 @@ public class Encode{
 		}
 		return HuffmanTree; 
 	}
-	
+
+	public static String[] makeHuffmanTable( PQHeap t ) {
+		String[] out = new String[256];
+		HuffmanTempTree huff = t.extractMin().data;
+		return huff.inOrderTreeWalkPath(huff.root, "", out);
+	}
 }

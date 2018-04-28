@@ -3,7 +3,7 @@ public class HuffmanTempTree{
 	// Should contain the temporary trees from the running of the Huffman Algorithm.
 	// Will be saved as part of Element objects.
 	
-	private Node root; 
+	public Node root;
 	private int k; 
 	 
 	// Constructor method
@@ -24,7 +24,7 @@ public class HuffmanTempTree{
 	// node in the tree.
 	// 0 = left
 	// 1 = right
-    private String[] inOrderTreeWalkPath(Node x, String s, String[] res){
+    public static String[] inOrderTreeWalkPath(Node x, String s, String[] res){
 		String temp = s;
 		if(x != null){
 			inOrderTreeWalkPath(x.left, s+"0",res);
