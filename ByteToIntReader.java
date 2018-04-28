@@ -9,6 +9,7 @@ public class ByteToIntReader{
 	
 	public static void readByteAsInt(File fil){
 		FileInputStream inp = null;
+		
 		// Starter en FileInputStream som skal være underliggende for BitInputStream
 		try{
 			inp = new FileInputStream(fil); 
