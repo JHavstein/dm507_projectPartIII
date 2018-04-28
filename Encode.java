@@ -6,10 +6,16 @@ import java.io.IOException;
 // Main class for the encoding 
 public class Encode{
 	public static void main(String[] args){
-		// Laver args om til File-objekter 
+		// Terminerer program, hvis fejlinput fra brugeren
 		if (args.length != 2){
-			// Fejlinput
-			System.out.println("To argumenter ikke givet. Terminerer program.");
+			if(args.length == 1){
+				System.out.println("Programmet kræver præcis 2 argumenter. Du gav 1 argument. Terminerer program.");
+			}
+			else{
+				System.out.println("Programmet kræver præcis 2 argumenter. Du gav " + args.length +  " argumenter. Terminerer program.");
+				
+			}
+			System.exit(0);
 		}
 		else{
 			// Laver Bytereaderobjekt, der tager inputstreng lavet om til File objekt som argument
@@ -68,7 +74,6 @@ public class Encode{
             }
 		}
 		// Laver outputStream til fil fra args[1]
-
 	}
 	
 	// Skal nok gøres non-static
