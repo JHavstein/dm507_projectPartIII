@@ -1,5 +1,6 @@
 import java.io.FileInputStream; 
 import java.io.FileOutputStream; 
+import java.io.DataOutputStream; 
 import java.io.File;
 import java.io.IOException;
 
@@ -34,24 +35,22 @@ public class Encode{
             try{
                 FileInputStream input = new FileInputStream(args[0]);
 				
-				// FileOutputStream for writing frequence table to output-file
-				FileOutputStream outputFreq = new FileOutputStream(args[1]);
+				FileOutputStream outUnderlying = new FileOutputStream(args[1]);
+				BitOutputStream outputFreq = new BitOutputStream(outUnderlying);
 				
 				// BitOutputStream for writing Huffman Codes to output
                 BitOutputStream outputBit = new BitOutputStream (new FileOutputStream(args[1]));
                 
 				// Skriver hyppighedstabellen outputfilen
-				// Format: hyppighederne skives som ints (4 bytes) fra 0-255 
-				// adskilt af ét mellemrum. Efter sidste hyppighed laves et linebreak
+				// Format: hyppighederne skives som ints (4 bytes) fra 0-255. 
+				//Efter sidste hyppighed laves et linebreak
 				// som kontrol
 				/* NB: kan ikke helt se om den reelt skriver ints til output ...*/
 				for (int i = 0; i <= 255; i++){
 					int out = br.freqAtIndex(i);
-					outputFreq.write(out);
-					outputFreq.write('\t'); //space
+					outputFreq.writeInt(out);
 				} 
-				outputFreq.write('\n'); //newline
-				
+								
 				// Lukker FileOutputStream til hyppighedstabellen
 				outputFreq.close(); 
 				
