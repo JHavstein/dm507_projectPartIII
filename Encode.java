@@ -26,6 +26,7 @@ public class Encode{
 			br.byteReader();
 			PQHeap n = makeHuffmanTree(br.getFrequencies());
 			String[] table = makeHuffmanTable(n);
+					
 			
 			// Næste fire linjer kun til testformål! Slettes inden aflevering
 			/*br.printFrequencies();
@@ -39,11 +40,10 @@ public class Encode{
 				BitOutputStream outputFreq = new BitOutputStream(outUnderlying);
 				
 				// BitOutputStream for writing Huffman Codes to output
-                BitOutputStream outputBit = new BitOutputStream (new FileOutputStream(args[1]));
                 
 				// Skriver hyppighedstabellen outputfilen
 				// Format: hyppighederne skives som ints (4 bytes) fra 0-255. 
-				//Efter sidste hyppighed laves et linebreak
+				// Efter sidste hyppighed laves et linebreak
 				// som kontrol
 				/* NB: kan ikke helt se om den reelt skriver ints til output ...*/
 				for (int i = 0; i <= 255; i++){
@@ -52,21 +52,21 @@ public class Encode{
 				} 
 								
 				// Lukker FileOutputStream til hyppighedstabellen
-				outputFreq.close(); 
 				
 				// Skriver Huffman-koder til outputfilen
 				int x;
-                while((x = input.read())!=-1){
+                while((x = input.read())!= -1){
                     String in = table[x];
-                    for (int i=0; i<in.length(); i++){
+                    for (int i=0; i < in.length(); i++){
                         int out = Character.getNumericValue(in.charAt(i));
-                        outputBit.writeBit(out);
+                        outputFreq.writeBit(out);
                     }
                 }
 				
 				// Lukker alle åbne input- og outputstreams
                 input.close();
-                outputBit.close();
+				outputFreq.close(); 
+				
             }
             catch (IOException e ){
                 e.printStackTrace();

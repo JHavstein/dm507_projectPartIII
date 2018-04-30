@@ -1,5 +1,8 @@
-import java.io.*;
-import java.util.*;
+import java.io.FileInputStream; 
+import java.io.FileOutputStream; 
+import java.io.DataOutputStream; 
+import java.io.File;
+import java.io.IOException;
 
 // Main class for the decoding  
 public class Decode{
@@ -19,23 +22,25 @@ public class Decode{
 			try{
 				// Åbner inputstreams
 				FileInputStream fileIn = new FileInputStream(args[0]);
+				//System.out.println(fileIn.available()); 
             	BitInputStream bitIn = new BitInputStream(fileIn);
 				
 				// Åbner outputstreams
 				FileOutputStream fileOut = new FileOutputStream(args[1]); 
 				BitOutputStream bitOut = new BitOutputStream(fileOut); 
-			
+					
 				// Læser hyppighedstabel fra input og tæller totale antal tegn -
 				// hvilket gemmes i totalChar
 				int[] freqTable = new int[256];
 				int totalChar = 0; 
 				for (int i = 0; i <= 255; i++){
 					freqTable[i] = bitIn.readInt();
+					//System.out.println(fileIn.available());
 					if(freqTable[i] > 0){
 						totalChar = totalChar + freqTable[i];
 					}
 				}
-				
+
 				// Laver Huffmantræ ud fra hyppighedstabel læst fra inputfil
 				PQHeap n = makeHuffmanTree(freqTable);
 				
@@ -44,13 +49,18 @@ public class Decode{
 				
 				// Dekoder tekst og skriver til output
 				// NB: virker ikke pt. (29-04-18)
+								
 				int nBit;
-				String temp = ""; 
+				int outByte; 
+				String temp = ""; 				
 				while((nBit = bitIn.readBit()) != -1){
 					temp = temp + String.valueOf(nBit); 
 					for(int i = 0; i < table.length; i++){
-						if (temp == table[i]){
-							bitOut.writeBit(i); 
+						if (table[i].equals(temp)){
+							outByte = convertToBinary(i); 
+							System.out.println(outByte); 
+							bitOut.writeBit(outByte); 
+							temp = ""; 
 						}
 					}
 				}
@@ -87,5 +97,27 @@ public class Decode{
 		String[] out = new String[256];
 		HuffmanTempTree huff = t.extractMin().data;
 		return huff.inOrderTreeWalkPath(huff.root, "", out);
+	}
+	
+	public static int convertToBinary(int i){
+		int q; // kvotient 
+		int m; // rest 
+		String s = ""; 
+		while (i > 0){
+			q = i / 2; 
+			m = i % 2; 
+			s = s + Integer.toString(m); 
+			i = q; 
+		}
+		// padder med 0'er
+		while(s.length() < 8){
+			s = s + "0"; 
+		}
+		// Vender streng
+		String p = "";  
+		for (int j = 7; j >= 0; j--){
+			p = p + s.charAt(j); 
+		}
+		return Integer.parseInt(p); 
 	}
 }
