@@ -47,17 +47,19 @@ public class Decode{
 				// Laver Huffmantabel ud fra Huffmantræet
 				String[] table = makeHuffmanTable(n);
 				
-				// Dekoder tekst og skriver til output
-				// NB: virker ikke pt. (29-04-18)
-								
+				// Dekoder tekst og skriver til output								
 				int nBit;
 				String outByte; 
 				String temp = ""; 				
 				while((nBit = bitIn.readBit()) != -1){
+					// Læser input og konkatenerer i temp
 					temp = temp + String.valueOf(nBit); 
 					for(int i = 0; i < table.length; i++){
+						// Tjekker om temp passer med et af Huffman-kodeordene
 						if (table[i].equals(temp)){
+							// Laver int om til byte 
 							outByte = convertToBinary(i); 
+							// Skriver bits til output
 							for (int r = 0; r < 8; r++){
 								int outputBit = Character.getNumericValue(outByte.charAt(r)); 
 								bitOut.writeBit(outputBit); 
@@ -101,6 +103,10 @@ public class Decode{
 		return huff.inOrderTreeWalkPath(huff.root, "", out);
 	}
 	
+	// Metode til at konvertere en int til 
+	// binær (d.v.s. 10-talssystem --> binært talsystem).
+	// i skal være i range [0; 255].
+	// Output har fixed længde == 8. 
 	public static String convertToBinary(int i){
 		int q; // kvotient 
 		int m; // rest 
