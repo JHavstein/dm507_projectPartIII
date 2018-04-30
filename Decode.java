@@ -50,8 +50,9 @@ public class Decode{
 				// Dekoder tekst og skriver til output								
 				int nBit;
 				String outByte; 
-				String temp = ""; 				
-				while((nBit = bitIn.readBit()) != -1){
+				String temp = ""; 	
+				int charCounter = 0; // counts how many bytes are written to the file			
+				while((nBit = bitIn.readBit()) != -1 & charCounter < totalChar){
 					// Læser input og konkatenerer i temp
 					temp = temp + String.valueOf(nBit); 
 					for(int i = 0; i < table.length; i++){
@@ -65,6 +66,7 @@ public class Decode{
 								bitOut.writeBit(outputBit); 
 							}
 							temp = ""; 
+							charCounter++; 
 						}
 					}
 				}

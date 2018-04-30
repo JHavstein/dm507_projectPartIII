@@ -26,13 +26,7 @@ public class Encode{
 			br.byteReader();
 			PQHeap n = makeHuffmanTree(br.getFrequencies());
 			String[] table = makeHuffmanTable(n);
-					
-			
-			// Næste fire linjer kun til testformål! Slettes inden aflevering
-			/*br.printFrequencies();
-			for (int i = 0; i < table.length; i++) {
-				System.out.println("key " + i + " : " + table[i]);
-			}*/
+
             try{
                 FileInputStream input = new FileInputStream(args[0]);
 				
