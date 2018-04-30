@@ -51,15 +51,17 @@ public class Decode{
 				// NB: virker ikke pt. (29-04-18)
 								
 				int nBit;
-				int outByte; 
+				String outByte; 
 				String temp = ""; 				
 				while((nBit = bitIn.readBit()) != -1){
 					temp = temp + String.valueOf(nBit); 
 					for(int i = 0; i < table.length; i++){
 						if (table[i].equals(temp)){
 							outByte = convertToBinary(i); 
-							System.out.println(outByte); 
-							bitOut.writeBit(outByte); 
+							for (int r = 0; r < 8; r++){
+								int outputBit = Character.getNumericValue(outByte.charAt(r)); 
+								bitOut.writeBit(outputBit); 
+							}
 							temp = ""; 
 						}
 					}
@@ -99,7 +101,7 @@ public class Decode{
 		return huff.inOrderTreeWalkPath(huff.root, "", out);
 	}
 	
-	public static int convertToBinary(int i){
+	public static String convertToBinary(int i){
 		int q; // kvotient 
 		int m; // rest 
 		String s = ""; 
@@ -118,6 +120,6 @@ public class Decode{
 		for (int j = 7; j >= 0; j--){
 			p = p + s.charAt(j); 
 		}
-		return Integer.parseInt(p); 
+		return p; 
 	}
 }
