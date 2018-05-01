@@ -22,45 +22,45 @@ public class Decode{
 			try{
 				// Åbner inputstreams
 				FileInputStream fileIn = new FileInputStream(args[0]);
-				//System.out.println(fileIn.available()); 
             	BitInputStream bitIn = new BitInputStream(fileIn);
 				
 				// Åbner outputstreams
 				FileOutputStream fileOut = new FileOutputStream(args[1]); 
 				BitOutputStream bitOut = new BitOutputStream(fileOut); 
 					
-				// Læser hyppighedstabel fra input og tæller totale antal tegn -
-				// hvilket gemmes i totalChar
+				// Læser hyppighedstabel fra input og tæller samtidig det samlede antal tegn 
 				int[] freqTable = new int[256];
 				int totalChar = 0; 
 				for (int i = 0; i <= 255; i++){
 					freqTable[i] = bitIn.readInt();
-					//System.out.println(fileIn.available());
 					if(freqTable[i] > 0){
 						totalChar = totalChar + freqTable[i];
 					}
 				}
 
 				// Laver Huffmantræ ud fra hyppighedstabel læst fra inputfil
+				// Samme implementation af makeHuffmanTree() som i Encode.java
 				PQHeap n = makeHuffmanTree(freqTable);
 				
 				// Laver Huffmantabel ud fra Huffmantræet
+				// Samme implementation af makeHuffmanTable() som i Encode.java
 				String[] table = makeHuffmanTable(n);
 				
 				// Dekoder tekst og skriver til output								
-				int nBit;
+				int nBit; 
 				String outByte; 
 				String temp = ""; 	
-				int charCounter = 0; // counts how many bytes are written to the file			
+				int charCounter = 0; // tæller hvor mange bytes, der er skrevet til output	
+						
 				while((nBit = bitIn.readBit()) != -1 & charCounter < totalChar){
 					// Læser input og konkatenerer i temp
 					temp = temp + String.valueOf(nBit); 
 					for(int i = 0; i < table.length; i++){
 						// Tjekker om temp passer med et af Huffman-kodeordene
 						if (table[i].equals(temp)){
-							// Laver int om til byte 
+							// Laver int om til byte af fixed længde 8 
 							outByte = convertToBinary(i); 
-							// Skriver bits til output
+							// Skriver bits fra byte bag Huffman kodeord til output
 							for (int r = 0; r < 8; r++){
 								int outputBit = Character.getNumericValue(outByte.charAt(r)); 
 								bitOut.writeBit(outputBit); 
@@ -70,6 +70,7 @@ public class Decode{
 						}
 					}
 				}
+				// Lukker streams
 				bitIn.close();
 				bitOut.close(); 
 								
@@ -87,7 +88,6 @@ public class Decode{
 			Element tmp = new Element(a[i], new HuffmanTempTree(i));
 			HuffmanTree.insert(tmp);
 		}
-		// Mangler merge-skridtene
 		for (int i = 0; i < a.length-1; i++){
 			Element x = HuffmanTree.extractMin();
 			Element y = HuffmanTree.extractMin();
@@ -107,8 +107,8 @@ public class Decode{
 	
 	// Metode til at konvertere en int til 
 	// binær (d.v.s. 10-talssystem --> binært talsystem).
-	// i skal være i range [0; 255].
-	// Output har fixed længde == 8. 
+	// i skal være i [0; 255].
+	// Output har fixed længde 8. 
 	public static String convertToBinary(int i){
 		int q; // kvotient 
 		int m; // rest 
