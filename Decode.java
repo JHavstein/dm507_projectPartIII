@@ -50,7 +50,7 @@ public class Decode{
 				String temp = ""; 	
 				int charCounter = 0; // tæller hvor mange bytes, der er skrevet til output	
 				
-				// Laver HashMap til at opbevare bitmønstre i
+				// Laver HashMap med kapacitet 256 og load factor 100% til at opbevare bitmønstre i
 				Map<Integer,String> byteMap = new HashMap<Integer,String>(256,100);
 				
 				// Læser Huffman-kodeord fra input og skriver til output	
