@@ -114,7 +114,7 @@ public class Decode{
 	}
 	
 	// Samme implementation som i Encode.java
-	public static String[] makeHuffmanTable( PQHeap t ) {
+	public static String[] makeHuffmanTable(PQHeap t) {
 		String[] out = new String[256];
 		HuffmanTempTree huff = t.extractMin().data;
 		return huff.inOrderTreeWalkPath(huff.root, "", out);
