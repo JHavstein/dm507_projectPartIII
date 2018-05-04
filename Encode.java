@@ -19,35 +19,30 @@ public class Encode{
 			System.exit(0);
 		}
 		else{
-			// Laver Bytereaderobjekt, der tager inputstreng lavet om til File objekt som argument
+			// Initializing Bytereader object which takes a File object as an argument
+			// for its constructor method 
 			Bytereader br = new Bytereader(new File(args[0]));
 			
-			// Laver frekvenstabel 
+			// Making Huffman tree and Huffman codes
 			br.byteReader();
 			PQHeap n = makeHuffmanTree(br.getFrequencies());
 			String[] table = makeHuffmanTable(n);
 
             try{
+				// Opening input-/outputstreams 
                 FileInputStream input = new FileInputStream(args[0]);
-				
 				FileOutputStream outUnderlying = new FileOutputStream(args[1]);
 				BitOutputStream outputFreq = new BitOutputStream(outUnderlying);
-				
-				// BitOutputStream for writing Huffman Codes to output
-                
-				// Skriver hyppighedstabellen outputfilen
-				// Format: hyppighederne skives som ints (4 bytes) fra 0-255. 
-				// Efter sidste hyppighed laves et linebreak
-				// som kontrol
-				/* NB: kan ikke helt se om den reelt skriver ints til output ...*/
+				                
+				// Writing the frequenct table to the outputfile
+				// Format: The frequencies are written as consecutive ints 
+				// in range [0;255]. 
 				for (int i = 0; i <= 255; i++){
 					int out = br.freqAtIndex(i);
 					outputFreq.writeInt(out);
 				} 
-								
-				// Lukker FileOutputStream til hyppighedstabellen
-				
-				// Skriver Huffman-koder til outputfilen
+												
+				// Writing Huffman codes to the output file 
 				int x;
                 while((x = input.read())!= -1){
                     String in = table[x];
@@ -57,7 +52,7 @@ public class Encode{
                     }
                 }
 				
-				// Lukker alle åbne input- og outputstreams
+				// Closing all open streams
                 input.close();
 				outputFreq.close(); 
 				
