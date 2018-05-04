@@ -7,7 +7,7 @@ import java.io.IOException;
 // Main class for the encoding 
 public class Encode{
 	public static void main(String[] args){
-		// Terminerer program, hvis fejlinput fra brugeren
+		// Terminates program if user does not give correct number of arguments
 		if (args.length != 2){
 			if(args.length == 1){
 				System.out.println("Programmet kræver præcis 2 argumenter. Du gav 1 argument. Terminerer program.");
@@ -61,30 +61,40 @@ public class Encode{
                 e.printStackTrace();
             }
 		}
-		// Laver outputStream til fil fra args[1]
 	}
 	
-	// Skal nok gøres non-static
+	// Method for making the a Huffman Tree from a PQHeap
+	// The method takes and int[] as a parameter, which should
+	// be th frequency table.
 	public static PQHeap makeHuffmanTree(int[] a){
 		PQHeap HuffmanTree = new PQHeap(a.length);
+		// Creating a a new Element object for each of the 
+		// 256 possible bit patterns (represented as an int)
+		// and inserts it into the PQHeap
 		for (int i = 0; i < a.length; i++){
 			Element tmp = new Element(a[i], new HuffmanTempTree(i));
 			HuffmanTree.insert(tmp);
 		}
-		// Mangler merge-skridtene
+		// Runs the Huffman Algorithm which extracts the two
+		// smallest elements from the PQHeap and merges these into 
+		// a new element, which is then inserted into the PQHeap. 
+		// This is done n-1 = 255 times.
 		for (int i = 0; i < a.length-1; i++){
 			Element x = HuffmanTree.extractMin();
 			Element y = HuffmanTree.extractMin();
 			int zFreq = x.key + y.key; 
+			// Uses typecasting of Object (Element.data) to HuffmanTempTree
 			HuffmanTempTree ztree = HuffmanTempTree.merge((HuffmanTempTree)x.data, (HuffmanTempTree)y.data);
 			Element z = new Element(zFreq, ztree);
 			HuffmanTree.insert(z);
 		}
 		return HuffmanTree; 
 	}
-
+	// Method for extracting the Huffman Codes from a 
+	// Huffman Tree (PQHeap)
 	public static String[] makeHuffmanTable( PQHeap t ) {
 		String[] out = new String[256];
+		// Uses typecasting of Object (Element.data) to HuffmanTempTree
 		HuffmanTempTree huff = (HuffmanTempTree) t.extractMin().data;
 		return huff.inOrderTreeWalkPath(huff.root, "", out);
 	}
