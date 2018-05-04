@@ -1,7 +1,7 @@
 public class Element {
 	public int key;
-	public HuffmanTempTree data;
-	public Element(int i, HuffmanTempTree o){
+	public Object data;
+	public Element(int i, Object o){
 		this.key = i;
 		this.data = o;
 	}

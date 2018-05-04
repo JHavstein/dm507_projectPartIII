@@ -76,7 +76,7 @@ public class Encode{
 			Element x = HuffmanTree.extractMin();
 			Element y = HuffmanTree.extractMin();
 			int zFreq = x.key + y.key; 
-			HuffmanTempTree ztree = HuffmanTempTree.merge(x.data, y.data);
+			HuffmanTempTree ztree = HuffmanTempTree.merge((HuffmanTempTree)x.data, (HuffmanTempTree)y.data);
 			Element z = new Element(zFreq, ztree);
 			HuffmanTree.insert(z);
 		}
@@ -85,7 +85,7 @@ public class Encode{
 
 	public static String[] makeHuffmanTable( PQHeap t ) {
 		String[] out = new String[256];
-		HuffmanTempTree huff = t.extractMin().data;
+		HuffmanTempTree huff = (HuffmanTempTree) t.extractMin().data;
 		return huff.inOrderTreeWalkPath(huff.root, "", out);
 	}
 }
