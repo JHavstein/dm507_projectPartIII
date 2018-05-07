@@ -1,23 +1,28 @@
+/**
+DM507, project part III
+	Mathilde Blicher Christensen - match17 - 01-03-1997
+	Jeanette Frieda Aviaya Sommer - jeaso17 - 08-05-1984
+	Jonas Alexander Havstein Eriksen - joeri15 - 16-02-1993
+*/
+
 import java.io.*;
 import java.util.*;
 
 public class Bytereader{
 
-	public File inputFil = null; 
-	public int[] counter = new int[256];
+	private File inputFil = null; 
+	private int[] counter = new int[256];
 	public Bytereader(File fil){
 		this.inputFil = fil;
 		this.counter = counter; 
 	}
 	
+	// Constructor method 
 	public void byteReader(){
-		// Array til at tælle frekvens af bytes
-		// int[] counter = new int[256];
-		// FileInputStream til at læse bytes fra en File
 		FileInputStream byteInput = null;	
 		try{
 		 	byteInput = new FileInputStream(inputFil);
-			// Tæller hyppighed af ASCII-bytes i inputfil
+			// Counting the frequency of each unique byte in the input file.
 			int byteContent = byteInput.read();
 			while(byteContent != -1){
 				counter[byteContent] = counter[byteContent] + 1; 
@@ -33,14 +38,9 @@ public class Bytereader{
 		catch(IOException s){
 			s.printStackTrace();
 		}
-	}
-	
-	public void printFrequencies(){
-		for(int i = 0; i < counter.length; i++){
-			System.out.println("Byte " + i + ": " + counter[i]);
-		} 
 	}	
 	
+	// Getter-method for 
 	public int[] getFrequencies(){
 		int[] copyOfCounter = Arrays.copyOf(counter, counter.length); 
 		return copyOfCounter; 

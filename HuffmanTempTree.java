@@ -1,18 +1,22 @@
+/**
+DM507, project part III
+	Mathilde Blicher Christensen - match17 - 01-03-1997
+	Jeanette Frieda Aviaya Sommer - jeaso17 - 08-05-1984
+	Jonas Alexander Havstein Eriksen - joeri15 - 16-02-1993
+*/
+
 public class HuffmanTempTree{
-	
-	// Should contain the temporary trees from the running of the Huffman Algorithm.
-	// Will be saved as part of Element objects.
 	
 	public Node root;
 	private int k; 
 	 
-	// Constructor method
+	// Constructor method 
 	public HuffmanTempTree(int k){
 		this.root = new Node(k);
 	}
 	
-	// Combines two trees by making a new node and making the to input trees
-	// subtrees of the root.
+	// Method for combining two HuffmanTempTrees by making a new node and making the two trees
+	// a and b subtrees of this new root.
 	public static HuffmanTempTree merge(HuffmanTempTree a, HuffmanTempTree b){
 		HuffmanTempTree newTree = new HuffmanTempTree(0); // skal roden have en meningsfuld key?
 		newTree.root.left = a.root;
@@ -21,7 +25,8 @@ public class HuffmanTempTree{
 	}
 	
 	// Method for traversing a tree and storing the paths from ndoe x to each
-	// node in the tree.
+	// leaf node in the tree.
+	// Using following convention for the paths: 
 	// 0 = left
 	// 1 = right
     public static String[] inOrderTreeWalkPath(Node x, String s, String[] res){

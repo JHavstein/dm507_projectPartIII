@@ -1,13 +1,10 @@
 /**
-Program for: DM507 project
-Lecturer: Rolf Fagerberg
-TA: Jonas Andersen
-Handed in: 12-03-18
-Written by: 
-	- Mathilde Blicher Christensen, mathc17, 01-03-1997
-	- Jeanette Frieda Aviaya Sommer, jease17, 08-05-1984
-	- Jonas Alexander Havstein Eriksen, joeri15, 16-02-1993
+DM507, project part III
+	Mathilde Blicher Christensen - match17 - 01-03-1997
+	Jeanette Frieda Aviaya Sommer - jeaso17 - 08-05-1984
+	Jonas Alexander Havstein Eriksen - joeri15 - 16-02-1993
 */
+
 public class PQHeap implements PQ {
     private Element[] A;
     // Index of the last element in the array.

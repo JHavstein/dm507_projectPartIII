@@ -1,10 +1,18 @@
+/**
+DM507, project part III
+	Mathilde Blicher Christensen - match17 - 01-03-1997
+	Jeanette Frieda Aviaya Sommer - jeaso17 - 08-05-1984
+	Jonas Alexander Havstein Eriksen - joeri15 - 16-02-1993
+*/
+
+
 import java.io.FileInputStream; 
 import java.io.FileOutputStream; 
 import java.io.DataOutputStream; 
 import java.io.File;
 import java.io.IOException;
 
-// Main class for the encoding 
+// Main class for the encoding part
 public class Encode{
 	public static void main(String[] args){
 		// Terminates program if user does not give correct number of arguments
@@ -35,7 +43,7 @@ public class Encode{
 				BitOutputStream outputFreq = new BitOutputStream(outUnderlying);
 				                
 				// Writing the frequenct table to the outputfile
-				// Format: The frequencies are written as consecutive ints 
+				// Format: The frequencies are written as consecutive non-seperated ints 
 				// in range [0;255]. 
 				for (int i = 0; i <= 255; i++){
 					int out = br.freqAtIndex(i);
@@ -52,7 +60,7 @@ public class Encode{
                     }
                 }
 				
-				// Closing all open streams
+				// Closing all open input-/outputstreams
                 input.close();
 				outputFreq.close(); 
 				
@@ -65,10 +73,10 @@ public class Encode{
 	
 	// Method for making the a Huffman Tree from a PQHeap
 	// The method takes and int[] as a parameter, which should
-	// be th frequency table.
+	// be the frequency table created by the Bytereader object.
 	public static PQHeap makeHuffmanTree(int[] a){
 		PQHeap HuffmanTree = new PQHeap(a.length);
-		// Creating a a new Element object for each of the 
+		// Creating a a new Element for each of the 
 		// 256 possible bit patterns (represented as an int)
 		// and inserts it into the PQHeap
 		for (int i = 0; i < a.length; i++){
@@ -79,11 +87,12 @@ public class Encode{
 		// smallest elements from the PQHeap and merges these into 
 		// a new element, which is then inserted into the PQHeap. 
 		// This is done n-1 = 255 times.
+		// Typecasting from Element.data (Object) to HuffmanTempTree
+		// is used.
 		for (int i = 0; i < a.length-1; i++){
 			Element x = HuffmanTree.extractMin();
 			Element y = HuffmanTree.extractMin();
 			int zFreq = x.key + y.key; 
-			// Uses typecasting of Object (Element.data) to HuffmanTempTree
 			HuffmanTempTree ztree = HuffmanTempTree.merge((HuffmanTempTree)x.data, (HuffmanTempTree)y.data);
 			Element z = new Element(zFreq, ztree);
 			HuffmanTree.insert(z);
@@ -91,10 +100,11 @@ public class Encode{
 		return HuffmanTree; 
 	}
 	// Method for extracting the Huffman Codes from a 
-	// Huffman Tree (PQHeap)
-	public static String[] makeHuffmanTable( PQHeap t ) {
+	// Huffman Tree (PQHeap).
+	// Typecasting from Element.data (Object) to HuffmanTempTree
+	// is used.
+	public static String[]  makeHuffmanTable( PQHeap t ) {
 		String[] out = new String[256];
-		// Uses typecasting of Object (Element.data) to HuffmanTempTree
 		HuffmanTempTree huff = (HuffmanTempTree) t.extractMin().data;
 		return huff.inOrderTreeWalkPath(huff.root, "", out);
 	}

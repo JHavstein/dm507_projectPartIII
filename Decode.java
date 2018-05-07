@@ -1,3 +1,10 @@
+/**
+DM507, project part III
+	Mathilde Blicher Christensen - match17 - 01-03-1997
+	Jeanette Frieda Aviaya Sommer - jeaso17 - 08-05-1984
+	Jonas Alexander Havstein Eriksen - joeri15 - 16-02-1993
+*/
+
 import java.io.FileInputStream; 
 import java.io.FileOutputStream; 
 import java.io.DataOutputStream; 
@@ -9,7 +16,7 @@ import java.util.*;
 public class Decode{
 	public static void main(String[] args){
 		if (args.length != 2){
-			// Terminerer program, hvis fejlinput fra brugeren
+			// Terminates program if user does not give correct number of arguments
 			if(args.length == 1){
 				System.out.println("Programmet kræver præcis 2 argumenter. Du gav 1 argument. Terminerer program.");
 			}
@@ -21,13 +28,15 @@ public class Decode{
 		}
 		else{
 			try{
-				// Åbner IOstreams
+				// Opening input-/outputstreams 
 				FileInputStream fileIn = new FileInputStream(args[0]);
             	BitInputStream bitIn = new BitInputStream(fileIn);
 				FileOutputStream fileOut = new FileOutputStream(args[1]); 
 				BitOutputStream bitOut = new BitOutputStream(fileOut); 
-					
-				// Læser hyppighedstabel fra input og tæller samtidig det samlede antal tegn 
+				
+				// Reading the frequency table from the encoded file while 
+				// also counting the total number of characters which is the 
+				// sum of the frequencies. 	
 				int[] freqTable = new int[256];
 				int totalChar = 0; 
 				for (int i = 0; i <= 255; i++){
@@ -37,18 +46,18 @@ public class Decode{
 					}
 				}
 
-				// Laver Huffmantræ ud fra hyppighedstabel læst fra inputfil
-				// Samme implementation af makeHuffmanTree() som i Encode.java
+				// Making Huffman Tree on the basis of the frequency table. 
+				// Same implementation as in Encode.java.
 				PQHeap n = makeHuffmanTree(freqTable);
 				
-				// Laver Huffmantabel ud fra Huffmantræet
-				// Samme implementation af makeHuffmanTable() som i Encode.java
+				// Making Huffman Codes in the basis of the Huffman Table. 
+				// Same implementation as in Encode.java.
 				String[] table = makeHuffmanTable(n);
 				
 				int nBit; 
 				String outByte; 
 				String temp = ""; 	
-				int charCounter = 0; // tæller hvor mange bytes, der er skrevet til output	
+				int charCounter = 0; // Counts number of bytes outputted at any given time
 				
 				// Laver HashMap med kapacitet 256 og load factor 100% til at opbevare bitmønstre i
 				Map<Integer,String> byteMap = new HashMap<Integer,String>(256,100);
@@ -58,27 +67,27 @@ public class Decode{
 				// og at der der kun skrives det antal bytes til output som der var 
 				// i den originale fil, der blev komprimeret med Encode.java.	
 				while((nBit = bitIn.readBit()) != -1 & charCounter < totalChar){
-					// Læser input og konkatenerer i temp
+					// Reading input with concatenating temp
 					temp = temp + String.valueOf(nBit); 
 					for(int i = 0; i < table.length; i++){
-						// Tjekker om temp passer med et af Huffman-kodeordene
+						// Checks if temp matches any of the Huffman codes at this point
 						if (table[i].equals(temp)){
-							// Tjekker om kodeorder er mødt før
-							if (byteMap.containsKey(i)){
-								// Gemmer bitmønster i byteMap 
+							// Checks if a given Huffman code has been encountered before
+							if (byteMap.containsKey(i)){ 
 								outByte = byteMap.get(i); 
 							} 
 							else{
-								// Kodeordet er mødt før, så det slås op i byteMap
+								// The given Huffman code is encountered for the first time
+								// and must therefore be converted from int to binary.
 								outByte = convertToBinary(i); 
 								byteMap.put(i, outByte); 
 							}
-							// Skriver bits fra byte bag Huffman kodeord til output
+							// Writing byte to output bitwise 
 							for (int r = 0; r < 8; r++){
 								int outputBit = Character.getNumericValue(outByte.charAt(r)); 
 								bitOut.writeBit(outputBit); 
 							}
-							temp = ""; 
+							temp = ""; // resetting temp  
 							charCounter++; 
 						}
 					}
@@ -95,7 +104,7 @@ public class Decode{
 		}
 	}
 	
-	// Samme implementation som i Encode.java
+	// Same implementation as in Encode.java (see comments there)
 	public static PQHeap makeHuffmanTree(int[] a){
 		PQHeap HuffmanTree = new PQHeap(a.length);
 		for (int i = 0; i < a.length; i++){
@@ -113,19 +122,20 @@ public class Decode{
 		return HuffmanTree; 
 	}
 	
-	// Samme implementation som i Encode.java
+	// Same implementation as in Encode.java (see comments there)
 	public static String[] makeHuffmanTable(PQHeap t) {
 		String[] out = new String[256];
 		HuffmanTempTree huff = (HuffmanTempTree) t.extractMin().data;
 		return huff.inOrderTreeWalkPath(huff.root, "", out);
 	}
 	
-	// Metode til at konvertere en int til 
-	// binær (d.v.s. 10-talssystem --> binært talsystem).
-	// i skal være i [0; 255]. Output har fixed længde 8. 
+	// Method for converting an int to a binary of fixed 
+	// length 8. A string representation is returned 
+	// to maintain the binary representation. 
+	// i: int to be converted. Must be in range [0;255]
 	public static String convertToBinary(int i){
-		int q; // kvotient 
-		int m; // rest 
+		int q; // quotient from integer division  
+		int m; // remainder from integer division 
 		String s = ""; 
 		while (i > 0){
 			q = i / 2; 
@@ -133,11 +143,12 @@ public class Decode{
 			s = s + Integer.toString(m); 
 			i = q; 
 		}
-		// padder med 0'er
+		// Padding with 0's if nessecary to reach length 8.
 		while(s.length() < 8){
 			s = s + "0"; 
 		}
-		// Vender streng
+		// Reading the resulting string from above backwards to 
+		// get the result. 
 		String p = "";  
 		for (int j = 7; j >= 0; j--){
 			p = p + s.charAt(j); 
