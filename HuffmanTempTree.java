@@ -24,7 +24,7 @@ public class HuffmanTempTree{
 		return newTree; 
 	}
 	
-	// Method for traversing a tree and storing the paths from ndoe x to each
+	// Method for traversing a tree and storing the paths from node x to each
 	// leaf node in the tree.
 	// Using following convention for the paths: 
 	// 0 = left
@@ -39,7 +39,7 @@ public class HuffmanTempTree{
             //i++;
             inOrderTreeWalkPath(x.right, s+"1",res);
         }
-		// An array containing the elements in 
+		// An array containing the paths of the elements in
 		// increasing, sorted order is returned 
         return res;
     }

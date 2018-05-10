@@ -16,7 +16,7 @@ public class Node {
 	// Constructor method for Node object
     public Node(int key){
 		this.key = key;
-		// Node objets initiated with empty subtrees 
+		// Node objects initiated with empty subtrees
 		this.left = null;
 		this.right = null;
     }

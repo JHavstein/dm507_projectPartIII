@@ -42,8 +42,8 @@ public class Encode{
 				FileOutputStream outUnderlying = new FileOutputStream(args[1]);
 				BitOutputStream outputFreq = new BitOutputStream(outUnderlying);
 				                
-				// Writing the frequenct table to the outputfile
-				// Format: The frequencies are written as consecutive non-seperated ints 
+				// Writing the frequency table to the outputfile
+				// Format: The frequencies are written as consecutive non-separated integers
 				// in range [0;255]. 
 				for (int i = 0; i <= 255; i++){
 					int out = br.freqAtIndex(i);
