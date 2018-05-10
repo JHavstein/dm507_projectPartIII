@@ -1,6 +1,6 @@
 /**
 DM507, project part III
-	Mathilde Blicher Christensen - match17 - 01-03-1997
+	Mathilde Blicher Christensen - mathc17 - 01-03-1997
 	Jeanette Frieda Aviaya Sommer - jeaso17 - 08-05-1984
 	Jonas Alexander Havstein Eriksen - joeri15 - 16-02-1993
 */
@@ -71,12 +71,12 @@ public class Encode{
 		}
 	}
 	
-	// Method for making the a Huffman Tree from a PQHeap
-	// The method takes and int[] as a parameter, which should
+	// Method for making the a Huffman Tree from a PQHeap.
+	// The method takes an int[] as a parameter, which should
 	// be the frequency table created by the Bytereader object.
 	public static PQHeap makeHuffmanTree(int[] a){
 		PQHeap HuffmanTree = new PQHeap(a.length);
-		// Creating a a new Element for each of the 
+		// Creating a new Element for each of the
 		// 256 possible bit patterns (represented as an int)
 		// and inserts it into the PQHeap
 		for (int i = 0; i < a.length; i++){
