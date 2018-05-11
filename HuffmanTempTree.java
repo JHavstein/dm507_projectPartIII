@@ -34,13 +34,11 @@ public class HuffmanTempTree{
 		if(x != null){
 			inOrderTreeWalkPath(x.left, s+"0",res);
 			if (x.right == null & x.left == null){
-				res[x.key] = temp; 
+				res[x.key] = temp;
 			}
-            //i++;
             inOrderTreeWalkPath(x.right, s+"1",res);
         }
-		// An array containing the paths of the elements in
-		// increasing, sorted order is returned 
+		// An array containing the paths of the elements is returned
         return res;
     }
 }

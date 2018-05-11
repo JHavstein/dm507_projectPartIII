@@ -62,10 +62,10 @@ public class Decode{
 				// Laver HashMap med kapacitet 256 og load factor 100% til at opbevare bitmønstre i
 				Map<Integer,String> byteMap = new HashMap<Integer,String>(256,100);
 				
-				// Læser Huffman-kodeord fra input og skriver til output	
-				// Første betingelse for while-løkken er, at der er mere at læse fra filen
-				// og at der der kun skrives det antal bytes til output som der var 
-				// i den originale fil, der blev komprimeret med Encode.java.	
+				// Reads the Huffman codeword from input and writes to output.
+				// The first condition for the while loop states that there must be more to read from the file and that
+				// there should only be written the same number of bytes to output as contained in the original file
+				// compressed by Encode.java.
 				while((nBit = bitIn.readBit()) != -1 & charCounter < totalChar){
 					// Reading input with concatenating temp
 					temp = temp + String.valueOf(nBit); 
@@ -93,7 +93,7 @@ public class Decode{
 					}
 				}
 				
-				// Lukker IOstreams
+				// Closes IOstreams
 				bitIn.close();
 				bitOut.close(); 
 								
