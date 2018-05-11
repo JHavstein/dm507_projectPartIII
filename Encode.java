@@ -15,7 +15,7 @@ import java.io.IOException;
 // Main class for the encoding part
 public class Encode{
 	public static void main(String[] args){
-		// Terminates program if user does not give correct number of arguments
+		// Terminates program if user does not give correct number of arguments.
 		if (args.length != 2){
 			if(args.length == 1){
 				System.out.println("Programmet kræver præcis 2 argumenter. Du gav 1 argument. Terminerer program.");
@@ -28,21 +28,25 @@ public class Encode{
 		}
 		else{
 			// Initializing Bytereader object which takes a File object as an argument
-			// for its constructor method 
+			// for its constructor method.
 			Bytereader br = new Bytereader(new File(args[0]));
 			
-			// Making Huffman tree and Huffman codes
+			// Making Huffman tree and Huffman codes.
 			br.byteReader();
 			PQHeap n = makeHuffmanTree(br.getFrequencies());
 			String[] table = makeHuffmanTable(n);
+			for (int i=0; i<table.length; i++){
+				System.out.println(i + " " + table[i]);
+			}
+
 
             try{
-				// Opening input-/outputstreams 
+				// Opening input-/outputstreams.
                 FileInputStream input = new FileInputStream(args[0]);
 				FileOutputStream outUnderlying = new FileOutputStream(args[1]);
 				BitOutputStream outputFreq = new BitOutputStream(outUnderlying);
 				                
-				// Writing the frequency table to the outputfile
+				// Writing the frequency table to the outputfile.
 				// Format: The frequencies are written as consecutive non-separated integers
 				// in range [0;255]. 
 				for (int i = 0; i <= 255; i++){
@@ -50,7 +54,7 @@ public class Encode{
 					outputFreq.writeInt(out);
 				} 
 												
-				// Writing Huffman codes to the output file 
+				// Writing Huffman codes to the output file.
 				int x;
                 while((x = input.read())!= -1){
                     String in = table[x];
@@ -60,7 +64,7 @@ public class Encode{
                     }
                 }
 				
-				// Closing all open input-/outputstreams
+				// Closing all open input-/outputstreams.
                 input.close();
 				outputFreq.close(); 
 				
@@ -74,12 +78,13 @@ public class Encode{
 	// Method for making the a Huffman Tree from a PQHeap.
 	// The method takes an int[] as a parameter, which should
 	// be the frequency table created by the Bytereader object.
-	public static PQHeap makeHuffmanTree(int[] a){
+	public static PQHeap makeHuffmanTree(int[] a) {
 		PQHeap HuffmanTree = new PQHeap(a.length);
 		// Creating a new Element for each of the
 		// 256 possible bit patterns (represented as an int)
 		// and inserts it into the PQHeap
-		for (int i = 0; i < a.length; i++){
+		int count = 0;
+		for (int i = 0; i < a.length; i++) {
 			Element tmp = new Element(a[i], new HuffmanTempTree(i));
 			HuffmanTree.insert(tmp);
 		}
@@ -89,11 +94,13 @@ public class Encode{
 		// This is done n-1 = 255 times.
 		// Typecasting from Element.data (Object) to HuffmanTempTree
 		// is used.
-		for (int i = 0; i < a.length-1; i++){
+		for (int i = 0; i < a.length - 1; i++) {
 			Element x = HuffmanTree.extractMin();
 			Element y = HuffmanTree.extractMin();
-			int zFreq = x.key + y.key; 
-			HuffmanTempTree ztree = HuffmanTempTree.merge((HuffmanTempTree)x.data, (HuffmanTempTree)y.data);
+			int zFreq = x.key + y.key;
+			HuffmanTempTree ztree = new HuffmanTempTree(0);
+			System.out.println(x.key + " " + y.key);
+			ztree.merge((HuffmanTempTree) x.data, (HuffmanTempTree) y.data);
 			Element z = new Element(zFreq, ztree);
 			HuffmanTree.insert(z);
 		}

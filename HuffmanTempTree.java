@@ -17,11 +17,11 @@ public class HuffmanTempTree{
 	
 	// Method for combining two HuffmanTempTrees by making a new node and making the two trees
 	// a and b subtrees of this new root.
-	public static HuffmanTempTree merge(HuffmanTempTree a, HuffmanTempTree b){
-		HuffmanTempTree newTree = new HuffmanTempTree(0); // skal roden have en meningsfuld key?
-		newTree.root.left = a.root;
-		newTree.root.right = b.root; 
-		return newTree; 
+	public void merge(HuffmanTempTree a, HuffmanTempTree b){
+		//HuffmanTempTree ztree = new HuffmanTempTree(0);
+		this.root.left = a.root;
+		this.root.right = b.root;
+		//return ztree;
 	}
 	
 	// Method for traversing a tree and storing the paths from node x to each
@@ -29,7 +29,7 @@ public class HuffmanTempTree{
 	// Using following convention for the paths: 
 	// 0 = left
 	// 1 = right
-    public static String[] inOrderTreeWalkPath(Node x, String s, String[] res){
+    public String[] inOrderTreeWalkPath(Node x, String s, String[] res){
 		String temp = s;
 		if(x != null){
 			inOrderTreeWalkPath(x.left, s+"0",res);

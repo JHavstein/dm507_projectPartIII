@@ -28,7 +28,7 @@ public class Decode{
 		}
 		else{
 			try{
-				// Opening input-/outputstreams 
+				// Opening input-/outputstreams.
 				FileInputStream fileIn = new FileInputStream(args[0]);
             	BitInputStream bitIn = new BitInputStream(fileIn);
 				FileOutputStream fileOut = new FileOutputStream(args[1]); 
@@ -111,13 +111,14 @@ public class Decode{
 			Element tmp = new Element(a[i], new HuffmanTempTree(i));
 			HuffmanTree.insert(tmp);
 		}
-		for (int i = 0; i < a.length-1; i++){
-			Element x = HuffmanTree.extractMin();
-			Element y = HuffmanTree.extractMin();
-			int zFreq = x.key + y.key; 
-			HuffmanTempTree ztree = HuffmanTempTree.merge((HuffmanTempTree) x.data, (HuffmanTempTree) y.data);
-			Element z = new Element(zFreq, ztree);
-			HuffmanTree.insert(z);
+        for (int i = 0; i < a.length-1; i++){
+            Element x = HuffmanTree.extractMin();
+            Element y = HuffmanTree.extractMin();
+            int zFreq = x.key + y.key;
+            HuffmanTempTree ztree = new HuffmanTempTree(0);
+            ztree.merge((HuffmanTempTree)x.data, (HuffmanTempTree)y.data);
+            Element z = new Element(zFreq, ztree);
+            HuffmanTree.insert(z);
 		}
 		return HuffmanTree; 
 	}

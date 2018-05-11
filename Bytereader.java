@@ -10,6 +10,8 @@ import java.util.*;
 
 public class Bytereader{
 
+	// Class for reading bytes from an input file, including methods for building arrays containg
+
 	private File inputFil = null; 
 	private int[] counter = new int[256];
 	public Bytereader(File fil){
@@ -17,7 +19,7 @@ public class Bytereader{
 		this.counter = counter; 
 	}
 	
-	// Constructor method that builds an array containing the frequency of each unique byte
+	// Constructor method that builds an array containing the frequency of each unique byte.
 	public void byteReader(){
 		FileInputStream byteInput = null;
 		try{
@@ -49,5 +51,11 @@ public class Bytereader{
 	// Returns the frequency of a given byte pattern given by index i
 	public int freqAtIndex(int i){
 		return counter[i]; 
-	}		
+	}
+
+	public void printFrequencies(){
+		for (int i=0; i<counter.length; i++){
+			System.out.println(i + " " + counter[i]);
+		}
+	}
 }
