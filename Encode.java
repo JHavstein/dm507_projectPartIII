@@ -4,13 +4,7 @@ DM507, project part III
 	Jeanette Frieda Aviaya Sommer - jeaso17 - 08-05-1984
 	Jonas Alexander Havstein Eriksen - joeri15 - 16-02-1993
 */
-
-
-import java.io.FileInputStream; 
-import java.io.FileOutputStream; 
-import java.io.DataOutputStream; 
-import java.io.File;
-import java.io.IOException;
+import java.io.*; 
 
 // Main class for the encoding part
 public class Encode{

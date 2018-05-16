@@ -5,11 +5,7 @@ DM507, project part III
 	Jonas Alexander Havstein Eriksen - joeri15 - 16-02-1993
 */
 
-import java.io.FileInputStream; 
-import java.io.FileOutputStream; 
-import java.io.DataOutputStream; 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 // Main class for the decoding  
