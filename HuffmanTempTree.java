@@ -21,7 +21,6 @@ public class HuffmanTempTree{
 		//HuffmanTempTree ztree = new HuffmanTempTree(0);
 		this.root.left = a.root;
 		this.root.right = b.root;
-		//return ztree;
 	}
 	
 	// Method for traversing a tree and storing the paths from node x to each

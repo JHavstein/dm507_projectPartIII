@@ -8,10 +8,8 @@ DM507, project part III
 import java.io.*;
 import java.util.*;
 
+// Class for reading bytes from an input file, including methods for building arrays containg
 public class Bytereader{
-
-	// Class for reading bytes from an input file, including methods for building arrays containg
-
 	private File inputFil = null; 
 	private int[] counter = new int[256];
 	public Bytereader(File fil){
