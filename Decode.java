@@ -59,7 +59,8 @@ public class Decode{
 				String temp = ""; 	
 				int charCounter = 0; // Counts number of bytes outputted at any given time
 				
-				// Laver HashMap med kapacitet 256 og load factor 100% til at opbevare bitmønstre i
+				// Initializing a HashMap with capacity 256 and load factor 100% for storing 
+				// byte-length bit patterns
 				Map<Integer,String> byteMap = new HashMap<Integer,String>(256,100);
 				
 				// Reads the Huffman codeword from input and writes to output.
