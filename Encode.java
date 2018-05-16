@@ -35,10 +35,6 @@ public class Encode{
 			br.byteReader();
 			PQHeap n = makeHuffmanTree(br.getFrequencies());
 			String[] table = makeHuffmanTable(n);
-			for (int i=0; i<table.length; i++){
-				System.out.println(i + " " + table[i]);
-			}
-
 
             try{
 				// Opening input-/outputstreams.
@@ -99,7 +95,6 @@ public class Encode{
 			Element y = HuffmanTree.extractMin();
 			int zFreq = x.key + y.key;
 			HuffmanTempTree ztree = new HuffmanTempTree(0);
-			System.out.println(x.key + " " + y.key);
 			ztree.merge((HuffmanTempTree) x.data, (HuffmanTempTree) y.data);
 			Element z = new Element(zFreq, ztree);
 			HuffmanTree.insert(z);

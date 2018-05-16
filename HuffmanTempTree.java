@@ -15,10 +15,10 @@ public class HuffmanTempTree{
 		this.root = new Node(k);
 	}
 	
-	// Method for combining two HuffmanTempTrees by making a new node and making the two trees
+	// Method for combining two HuffmanTempTrees by making a new node
+	// and making the two trees
 	// a and b subtrees of this new root.
 	public void merge(HuffmanTempTree a, HuffmanTempTree b){
-		//HuffmanTempTree ztree = new HuffmanTempTree(0);
 		this.root.left = a.root;
 		this.root.right = b.root;
 	}
