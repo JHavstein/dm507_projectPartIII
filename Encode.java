@@ -12,10 +12,10 @@ public class Encode{
 		// Terminates program if user does not give correct number of arguments.
 		if (args.length != 2){
 			if(args.length == 1){
-				System.out.println("Programmet kræver præcis 2 argumenter. Du gav 1 argument. Terminerer program.");
+				System.out.println("There needs to be to arguments. You gave 1 argument. The program will now terminate.");
 			}
 			else{
-				System.out.println("Programmet kræver præcis 2 argumenter. Du gav " + args.length +  " argumenter. Terminerer program.");
+				System.out.println("There needs to be to arguments. You gave " + args.length +  " arguments. The program will now terminate.");
 				
 			}
 			System.exit(0);
@@ -23,18 +23,18 @@ public class Encode{
 		else{
 			// Initializing Bytereader object which takes a File object as an argument
 			// for its constructor method.
-			Bytereader br = new Bytereader(new File(args[0]));
+			ByteReader br = new ByteReader(new File(args[0]));
 			
 			// Making Huffman tree and Huffman codes.
 			br.byteReader();
 			PQHeap n = makeHuffmanTree(br.getFrequencies());
 			String[] table = makeHuffmanTable(n);
-
-            try{
+			FileInputStream input = null;
+            		BitOutputStream outputFreq = null;
+            		try{
 				// Opening input-/outputstreams.
-                FileInputStream input = new FileInputStream(args[0]);
-				FileOutputStream outUnderlying = new FileOutputStream(args[1]);
-				BitOutputStream outputFreq = new BitOutputStream(outUnderlying);
+                		input = new FileInputStream(args[0]);
+                		outputFreq = new BitOutputStream(new FileOutputStream(args[1]));
 				                
 				// Writing the frequency table to the outputfile.
 				// Format: The frequencies are written as consecutive non-separated integers
@@ -46,22 +46,36 @@ public class Encode{
 												
 				// Writing Huffman codes to the output file.
 				int x;
-                while((x = input.read())!= -1){
-                    String in = table[x];
-                    for (int i=0; i < in.length(); i++){
-                        int out = Character.getNumericValue(in.charAt(i));
-                        outputFreq.writeBit(out);
-                    }
-                }
-				
-				// Closing all open input-/outputstreams.
-                input.close();
-				outputFreq.close(); 
-				
-            }
-            catch (IOException e ){
-                e.printStackTrace();
-            }
+                		while((x = input.read())!= -1){
+                    			String in = table[x];
+                    			for (int i=0; i < in.length(); i++){
+                        		int out = Character.getNumericValue(in.charAt(i));
+                        		outputFreq.writeBit(out);
+                    			}
+                		}
+            		}
+            		catch (IOException e ){
+				e.printStackTrace();
+           		}
+			finally{
+                	// Closing all open input-/outputstreams.	
+                		if(input != null){
+                    			try{
+                        			input.close();
+                    			}
+                    			catch(IOException e){
+                        			e.printStackTrace(); 
+                    			}
+                		}
+                		if(outputFreq != null){
+                    			try{
+                        			outputFreq.close();
+                    			}
+                    			catch(IOException e){
+                        			e.printStackTrace(); 
+                    			}
+                		} 
+            		}
 		}
 	}
 	
