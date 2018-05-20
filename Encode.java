@@ -87,7 +87,6 @@ public class Encode{
 		// Creating a new Element for each of the
 		// 256 possible bit patterns (represented as an int)
 		// and inserts it into the PQHeap
-		int count = 0;
 		for (int i = 0; i < a.length; i++) {
 			Element tmp = new Element(a[i], new HuffmanTempTree(i));
 			HuffmanTree.insert(tmp);
