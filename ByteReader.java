@@ -8,7 +8,8 @@ DM507, project part III
 import java.io.*;
 import java.util.*;
 
-// Class for reading bytes from an input file, including methods for building arrays containg
+// Class for reading bytes from an input file,
+// including methods for building arrays containing the frequency of each byte.
 public class ByteReader{
 	private File inputFile; 
 	private int[] counter = new int[256];
@@ -31,20 +32,15 @@ public class ByteReader{
         	}
 	}	
 	
-	// Getter-method for retrieving the frequencies
+	// Getter-method for retrieving the frequencies.
 	public int[] getFrequencies(){
 		int[] copyOfCounter = Arrays.copyOf(counter, counter.length); 
 		return copyOfCounter; 
 	}
 	
-	// Returns the frequency of a given byte pattern given by index i
+	// Returns the frequency of a given byte pattern given by index i.
 	public int freqAtIndex(int i){
 		return counter[i]; 
 	}
 
-	public void printFrequencies(){
-		for (int i=0; i<counter.length; i++){
-			System.out.println(i + " " + counter[i]);
-		}
-	}
 }

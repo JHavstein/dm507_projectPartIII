@@ -12,7 +12,7 @@ import java.util.*;
 public class Decode{
 	public static void main(String[] args){
 		if (args.length != 2){
-			// Terminates program if user does not give correct number of arguments
+			// Terminates program if user does not give correct number of arguments.
 			if(args.length == 1){
 				System.out.println("There needs to be to arguments. You gave 1 argument. The program will now terminate");
 			}
@@ -52,10 +52,10 @@ public class Decode{
 				int nBit; 
 				String outByte; 
 				String temp = ""; 	
-				int charCounter = 0; // Counts number of bytes outputted at any given time
+				int charCounter = 0; // Counts number of bytes outputted at any given time.
 				
 				// Initializing a HashMap with capacity 256 and load factor 100% for storing 
-				// byte-length bit patterns
+				// byte-length bit patterns.
 				Map<Integer,String> byteMap = new HashMap<Integer,String>(256,100);
 				
 				// Reads the Huffman codeword from input and writes to output.
@@ -63,12 +63,12 @@ public class Decode{
 				// there should only be written the same number of bytes to output as contained in the original file
 				// compressed by Encode.java.
 				while((nBit = bitIn.readBit()) != -1 & charCounter < totalChar){
-					// Reading input with concatenating temp
+					// Reading input with concatenating temp.
 					temp = temp + String.valueOf(nBit); 
 					for(int i = 0; i < table.length; i++){
-						// Checks if temp matches any of the Huffman codes at this point
+						// Checks if temp matches any of the Huffman codes at this point.
 						if (table[i].equals(temp)){
-							// Checks if a given Huffman code has been encountered before
+							// Checks if a given Huffman code has been encountered before.
 							if (byteMap.containsKey(i)){ 
 								outByte = byteMap.get(i); 
 							} 
@@ -78,12 +78,12 @@ public class Decode{
 								outByte = convertToBinary(i); 
 								byteMap.put(i, outByte); 
 							}
-							// Writing byte to output bitwise 
+							// Writing byte to output bitwise.
 							for (int r = 0; r < 8; r++){
 								int outputBit = Character.getNumericValue(outByte.charAt(r)); 
 								bitOut.writeBit(outputBit); 
 							}
-							temp = ""; // resetting temp  
+							temp = ""; // resetting temp.
 							charCounter++; 
 						}
 					}
@@ -154,7 +154,7 @@ public class Decode{
 			s = s + Integer.toString(m); 
 			i = q; 
 		}
-		// Padding with 0's if nessecary to reach length 8.
+		// Padding with 0's if necessary to reach length 8.
 		while(s.length() < 8){
 			s = s + "0"; 
 		}

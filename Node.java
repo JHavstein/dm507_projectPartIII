@@ -5,18 +5,18 @@ DM507, project part III
 	Jonas Alexander Havstein Eriksen - joeri15 - 16-02-1993
 */
 
-// Class for Node objects for HuffmanTempTree
+// Class for Node objects for HuffmanTempTree.
 
 public class Node {
     public int key;
-	// Pointers to right- and left child
+	// Pointers to right- and left child.
     public Node left;
     public Node right;
 
-	// Constructor method for Node object
+	// Constructor method for Node object.
     public Node(int key){
 		this.key = key;
-		// Node objects initiated with empty subtrees
+		// Node objects initiated with empty subtrees.
 		this.left = null;
 		this.right = null;
     }

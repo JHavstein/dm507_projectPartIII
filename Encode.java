@@ -6,7 +6,7 @@ DM507, project part III
 */
 import java.io.*; 
 
-// Main class for the encoding part
+// Main class for the encoding part.
 public class Encode{
 	public static void main(String[] args){
 		// Terminates program if user does not give correct number of arguments.
@@ -86,7 +86,7 @@ public class Encode{
 		PQHeap HuffmanTree = new PQHeap(a.length);
 		// Creating a new Element for each of the
 		// 256 possible bit patterns (represented as an int)
-		// and inserts it into the PQHeap
+		// and inserts it into the PQHeap.
 		for (int i = 0; i < a.length; i++) {
 			Element tmp = new Element(a[i], new HuffmanTempTree(i));
 			HuffmanTree.insert(tmp);
