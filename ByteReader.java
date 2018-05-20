@@ -9,35 +9,26 @@ import java.io.*;
 import java.util.*;
 
 // Class for reading bytes from an input file, including methods for building arrays containg
-public class Bytereader{
-	private File inputFil = null; 
+public class ByteReader{
+	private File inputFile; 
 	private int[] counter = new int[256];
-	public Bytereader(File fil){
-		this.inputFil = fil;
-		this.counter = counter; 
+	
+	public ByteReader(File file){
+		this.inputFile = file;
 	}
 	
 	// Constructor method that builds an array containing the frequency of each unique byte.
 	public void byteReader(){
-		FileInputStream byteInput = null;
-		try{
-		 	byteInput = new FileInputStream(inputFil);
-			// Counting the frequency of each unique byte in the input file.
-			int byteContent = byteInput.read();
-			while(byteContent != -1){
-				counter[byteContent] = counter[byteContent] + 1; 
-				byteContent = byteInput.read();
-			}
-		}
-		catch (IOException e){
-			e.printStackTrace();
-		}
-		try{
-			byteInput.close();
-		}
-		catch(IOException s){
-			s.printStackTrace();
-		}
+		try(FileInputStream byteInput = new FileInputStream(inputFile)){
+            		// Counting the frequency of each unique byte in the input file.
+            		int byteContent;
+            		while((byteContent = byteInput.read()) != -1){
+                		counter[byteContent] = counter[byteContent] + 1; 
+            		}
+        	}
+        	catch (IOException e){
+            		e.printStackTrace();
+        	}
 	}	
 	
 	// Getter-method for retrieving the frequencies
