@@ -14,22 +14,21 @@ public class Decode{
 		if (args.length != 2){
 			// Terminates program if user does not give correct number of arguments
 			if(args.length == 1){
-				System.out.println("Programmet kræver præcis 2 argumenter. Du gav 1 argument. Terminerer program.");
+				System.out.println("There needs to be to arguments. You gave 1 argument. The program will now terminate");
 			}
 			else{
-				System.out.println("Programmet kræver præcis 2 argumenter. Du gav " + args.length +  " argumenter. Terminerer program.");
+				System.out.println("There needs to be to arguments. You gave " + args.length +  " arguments. The program will now terminate.");
 				
 			}
 			System.exit(0);
 		}
 		else{
-			try{
-				// Opening input-/outputstreams.
-				FileInputStream fileIn = new FileInputStream(args[0]);
-            	BitInputStream bitIn = new BitInputStream(fileIn);
-				FileOutputStream fileOut = new FileOutputStream(args[1]); 
-				BitOutputStream bitOut = new BitOutputStream(fileOut); 
-				
+			BitInputStream bitIn = null;
+            		BitOutputStream bitOut = null;
+            		try{
+                		// Opening input-/outputstreams.
+                		bitIn = new BitInputStream(new FileInputStream(args[0]));
+                		bitOut = new BitOutputStream(new FileOutputStream(args[1])); 
 				// Reading the frequency table from the encoded file while 
 				// also counting the total number of characters which is the 
 				// sum of the frequencies. 	
@@ -88,16 +87,30 @@ public class Decode{
 							charCounter++; 
 						}
 					}
-				}
-				
-				// Closes IOstreams
-				bitIn.close();
-				bitOut.close(); 
-								
+				}				
 			}
 			catch(IOException e){
 				e.printStackTrace(); 
 			}
+			finally{
+                		// Closes IOstreams
+                		if(bitIn != null){
+                    			try{
+                        			bitIn.close();
+                    			}
+                    			catch(IOException e){
+                        			e.printStackTrace(); 
+                    			}
+                		}
+                		if(bitOut != null){
+                    			try{
+                        			bitOut.close();
+                    			}
+                    			catch(IOException e){
+                        			e.printStackTrace(); 
+                    			}
+                		} 
+            		}
 		}
 	}
 	
