@@ -8,7 +8,6 @@ DM507, project part III
 public class HuffmanTempTree{
 	
 	public Node root;
-	private int k; 
 	 
 	// Constructor method 
 	public HuffmanTempTree(int k){
