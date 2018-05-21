@@ -30,12 +30,12 @@ public class Huffman{
     	private HuffmanTempTree makeTree() {
         	PQHeap queue = makeQueue();
         	for (int i = 0; i < frequency.length - 1; i++) {
-            	HuffmanTempTree zTree = new HuffmanTempTree(0);
-            	Element x = queue.extractMin();
-            	Element y = queue.extractMin();
-            	int zFreq = x.key + y.key;
-            	zTree.merge((HuffmanTempTree) x.data, (HuffmanTempTree) y.data);
-            	queue.insert(new Element(zFreq, zTree));
+            		HuffmanTempTree zTree = new HuffmanTempTree(0);
+            		Element x = queue.extractMin();
+            		Element y = queue.extractMin();
+            		int zFreq = x.key + y.key;
+            		zTree.merge((HuffmanTempTree) x.data, (HuffmanTempTree) y.data);
+            		queue.insert(new Element(zFreq, zTree));
         	}
         	return (HuffmanTempTree) queue.extractMin().data;
     	}
