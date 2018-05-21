@@ -38,9 +38,7 @@ public class Decode{
 				int totalChar = 0; 
 				for (int i = 0; i <= 255; i++){
 					freqTable[i] = input.readInt();
-					if(freqTable[i] > 0){
-						totalChar = totalChar + freqTable[i];
-					}
+					totalChar = totalChar + freqTable[i];
 				}
 
 				// Making Huffman codes on the basis of the frequency table. 
