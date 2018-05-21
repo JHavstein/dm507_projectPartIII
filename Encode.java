@@ -39,17 +39,17 @@ public class Encode{
 			String[] table = new Huffman(freqTable).makeCodes();
 			
 			FileInputStream input = null;
-            		BitOutputStream outputFreq = null;
+            		BitOutputStream output = null;
             		try{
 				// Opening input-/outputstreams.
                 		input = new FileInputStream(args[0]);
-                		outputFreq = new BitOutputStream(new FileOutputStream(args[1]));
+                		output = new BitOutputStream(new FileOutputStream(args[1]));
 				                
 				// Writing the frequency table to the outputfile.
 				// Format: The frequencies are written as consecutive non-separated integers
 				// in range [0;255]. 
 				for (int i = 0; i <= 255; i++){
-					outputFreq.writeInt(freqTable[i]);
+					output.writeInt(freqTable[i]);
 				} 
 												
 				// Writing Huffman codes to the output file.
@@ -57,7 +57,7 @@ public class Encode{
                 		while((x = input.read())!= -1){
                     			String in = table[x];
                     			for (int i=0; i < in.length(); i++){
-                        			outputFreq.writeBit(Character.getNumericValue(in.charAt(i)));
+                        			output.writeBit(Character.getNumericValue(in.charAt(i)));
                     			}
                 		}
             		}
@@ -74,9 +74,9 @@ public class Encode{
                         			e.printStackTrace(); 
                     			}
                 		}
-                		if(outputFreq != null){
+                		if(output != null){
                     			try{
-                        			outputFreq.close();
+                        			output.close();
                     			}
                     			catch(IOException e){
                         			e.printStackTrace(); 
