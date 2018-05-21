@@ -43,12 +43,10 @@ public class Decode{
 					}
 				}
 
-				// Making Huffman Tree and codes on the basis of the frequency table. 
-                		// Same implementation as in Encode.java.
-                		Huffman huffman = new Huffman(freqTable);
-                		String[] table = huffman.makeCodes();
+				// Making Huffman codes on the basis of the frequency table. 
+                		String[] table = new Huffman(freqTable).makeCodes();
 				
-				int bit; 
+				int bit;
 				String temp = ""; 	
 				int charCounter = 0; // Counts number of bytes outputted at any given time.
 				
