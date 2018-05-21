@@ -35,7 +35,7 @@ public class Encode{
         		catch (IOException e){
             			e.printStackTrace();
         		}
-			// Making Huffman tree and Huffman codes.
+			// Making Huffman codes from frequency table.
 			String[] table = new Huffman(freqTable).makeCodes();
 			
 			FileInputStream input = null;
